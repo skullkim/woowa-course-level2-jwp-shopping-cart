@@ -26,7 +26,6 @@ public class AuthService {
         this.provider = provider;
     }
 
-
     public TokenResponse signIn(final SignInDto signInDto) {
         final Email email = new Email(signInDto.getEmail());
         final Password password = PasswordFactory.of(PasswordType.HASHED, signInDto.getPassword());
