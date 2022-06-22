@@ -32,9 +32,9 @@ public class AuthService {
 
         final Password foundPassword = customerRepository.findPasswordByEmail(email);
         verifyPassword(password, foundPassword);
-        Customer tokenPayloadDto = customerRepository.findByUserEmail(email);
+        Customer existedCustomer = customerRepository.findByUserEmail(email);
         String payload = createPayload(new EmailAuthentication(email.getValue()));
-        return new TokenResponse(tokenPayloadDto.getId(), provider.createToken(payload));
+        return new TokenResponse(existedCustomer.getId(), provider.createToken(payload));
     }
 
     private void verifyPassword(final Password hashedPassword, final Password existedPassword) {
