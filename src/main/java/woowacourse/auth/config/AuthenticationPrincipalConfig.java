@@ -26,4 +26,17 @@ public class AuthenticationPrincipalConfig implements WebMvcConfigurer {
     public AuthenticationPrincipalArgumentResolver createAuthenticationPrincipalArgumentResolver() {
         return new AuthenticationPrincipalArgumentResolver(jwtTokenProvider);
     }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(createAuthenticationPrincipalInterceptor())
+                .addPathPatterns("/customers/*");
+    }
+
+    @Bean
+    public AuthenticationPrincipalInterceptor createAuthenticationPrincipalInterceptor() {
+        return new AuthenticationPrincipalInterceptor(jwtTokenProvider);
+    }
+
+
 }
